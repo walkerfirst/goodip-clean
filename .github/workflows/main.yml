@@ -13,6 +13,8 @@ jobs:
     
     steps:
     - uses: actions/checkout@v3
+        with:
+          token: ${{ secrets.ACCESS_TOKEN }}  # 关键修改！
       
     - name: Set up Python
       uses: actions/setup-python@v4
