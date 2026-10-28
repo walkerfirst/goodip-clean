@@ -126,11 +126,11 @@ with open(ip_file, 'w', encoding='utf-8') as file:
 
 print(f'IP地址已更新到 ip.txt 文件中。共获取 {len(all_ip_matches)} 个IP。')
 
-# 生成逗号分隔的 ip_list.txt
-with open(ip_file, 'r', encoding='utf-8') as file:
-    ips_in_file = [line.split('#')[0].strip() for line in file if line.strip()]
+# 生成逗号分隔的 ip_list.txt（来源 log.txt）
+with open(log_file, 'r', encoding='utf-8') as file:
+    ips_in_log = re.findall(ip_pattern, file.read())
 
 with open('ip_list.txt', 'w', encoding='utf-8') as _file:
-    _file.write(','.join(ips_in_file))
+    _file.write(','.join(ips_in_log))
 
-print(f'IP列表已写入 ip_list.txt 文件中，共 {len(ips_in_file)} 个IP。')
+print(f'IP列表已写入 ip_list.txt 文件中，共 {len(ips_in_log)} 个IP。')
