@@ -79,6 +79,19 @@ all_ip_matches = all_ip_matches[:max_ip_count]
 
 print(f"最终获取到 {len(all_ip_matches)} 个唯一IP: {all_ip_matches}")
 
+# 从 ipTop10 页面获取热门IP，合并到 logs
+top10_url = 'https://ip.164746.xyz/ipTop10.html'
+try:
+    response = requests.get(top10_url, timeout=10)
+    response.encoding = 'utf-8'
+    top10_ips = re.findall(ip_pattern, response.text)
+    if top10_ips:
+        logs.append('ipTop10热门IP:')
+        logs.extend(top10_ips)
+        print(f"ipTop10获取到 {len(top10_ips)} 个IP: {top10_ips}")
+except Exception as e:
+    print(f"处理 {top10_url} 时出错: {e}")
+
 # 将所有获取的ip保存在 log_file中
 with open(log_file, 'w', encoding='utf-8') as _file:
     _file.write('获取到的所有ip为:' + '\n')
